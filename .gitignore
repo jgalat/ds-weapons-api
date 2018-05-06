@@ -18,3 +18,10 @@ cabal.sandbox.config
 .stack-work/
 cabal.project.local
 .HTF/
+
+.stack-work/
+ds-weapons-api.cabal
+*~
+
+output/
+webscrap/weapons.json

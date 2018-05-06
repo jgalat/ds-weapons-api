@@ -1,0 +1,36 @@
+name:                ds-weapons-api
+version:             0.1.0.0
+github:              "jgalat/ds-weapons-api"
+license:             GPL-3
+author:              "Jorge Galat"
+maintainer:          "jrgglt@gmail.com"
+copyright:           "2018 Jorge Galat"
+
+extra-source-files:
+- README.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Development
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/jgalat/ds-weapons-api#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- static-api-generator
+- aeson
+- bytestring
+- containers
+- text
+
+executables:
+  ds-weapons-api-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N

@@ -1,0 +1,3 @@
+[submodule "static-api-generator"]
+	path = static-api-generator
+	url = https://github.com/jgalat/static-api-generator
