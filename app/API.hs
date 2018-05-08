@@ -19,13 +19,12 @@ weaponsStaticAPI weapons =
     weaponTypes           = unique (map weapon_type weaponElems)
     normalWeapon          = weapons M.! "dagger"
     possibleUpgrades      = M.keys (upgrades normalWeapon)
-    getWeapon e           = weapons M.! (get "id" e)
+    getWeapon e           = weapons M.! get "id" e
 
     weaponIdPath          = constant "weapon" ./ variable "id" weaponIds
   in do
     -- "/"
-    route root $ \_ ->
-      weaponElemsSimplified
+    route root (const weaponElemsSimplified)
 
     -- "/weapon_type/:weapon_type"
     route (constant "weapon_type" ./ variable "weaponType" weaponTypes) $ \e ->
@@ -33,8 +32,7 @@ weaponsStaticAPI weapons =
       in filter ((weaponType ==) . weapon_type) weaponElemsSimplified
 
     -- "/weapon/:weapon_id"
-    route weaponIdPath $
-      getWeapon
+    route weaponIdPath getWeapon
 
     -- "/weapon/:weapon_id/simplify"
     route (weaponIdPath ./ constant "simplify") $ \e ->

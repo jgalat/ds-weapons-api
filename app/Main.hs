@@ -14,9 +14,7 @@ jsonFile :: FilePath
 jsonFile = "webscrap/weapons.json"
 
 readJSON :: IO (Maybe Weapons)
-readJSON = do
-  json <- BSL.readFile jsonFile
-  return (decode json)
+readJSON = decode <$> BSL.readFile jsonFile
 
 failedParsing :: IO ()
 failedParsing = do
