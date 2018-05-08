@@ -97,5 +97,5 @@ with the specied `:weapon_id`.
 GET /weapon/:weapon_id/upgrade/:upgrade_path
 ```
 
-Returns the in-game stats updates for the specied upgrade
+Returns the in-game stats updates for the specified upgrade
 path of the `:weapon_id` weapon .
