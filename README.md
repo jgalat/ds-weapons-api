@@ -1,4 +1,6 @@
 # ds-weapons-api
+[![Build Status](https://travis-ci.org/jgalat/ds-weapons-api.svg?branch=master)](https://travis-ci.org/jgalat/ds-weapons-api)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 A Dark Souls weapon information static API. An example built with
 [static-api-generator](https://www.github.com/jgalat/static-api-generator).
