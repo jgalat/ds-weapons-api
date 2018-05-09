@@ -16,8 +16,10 @@ branches:
 # Use new container infrastructure to enable caching
 sudo: false
 
-# Do not choose a language; we provide our own build tools.
-language: generic
+# We set python as language to make use of travis virtualenv
+language: python
+python:
+  - "3.6"
 
 # Caching so the next build will be fast too.
 cache:
@@ -38,6 +40,8 @@ before_install:
 
 install:
 # Build dependencies
+- pip install -r $TRAVIS_BUILD_DIR/webscrap/requirements.txt
+- python $TRAVIS_BUILD_DIR/webscrap/ds_weapons_webscrap.py ${WEAPONS_JSON}
 - stack --no-terminal --install-ghc test --only-dependencies
 
 script:
@@ -52,7 +56,7 @@ after_success:
 # Environment
 env:
   global:
-  - WEAPONS_JSON: webscrap/weapons.json
+  - WEAPONS_JSON: weapons.json
   - GH_USER: jgalat
   - GH_REPO: ds-weapons-api
   - secure: jEcZGCDnK83vo1Gtf5tHP6enKQ5ZnIYGrixjlDrbKjBNIQwlsvr2vt1fVWDU4bzzDms2ucCR3Ql8SWaZii9Vl8axoQvC2HWkmRSo8thri7WRTAN2DLFrERQfjxpVBXm873i5GXHDBy+rlG0VVQBQ7Ukqd+TB9DyuZ8fubRMiPIY7xDCETAQMlF+pO9dAN3xGxPnCdl1qi0hE0FqQiNJ80jNWLONxLdiHhtgHz9Ejql9cdf9ZmznEW84N46yS1tfkeMn0FZjqydwx/vrudoSMKj+t3uG8p1WhShLoKbr4JGdzhwHW5FtDUyCbqqQfAT2XyVHG3CUs413qmLuiad8yq5RDJWbuBlnZ22ZHRvmVSwqt0gcmOPCzO0+4dYBwLdRAk09FtjqYmHs8Swkbvn5nN0h1blqgMesGTeGKaJ96MQdqOdePMSInUhy8f+scRZITNl/f628GoQrZihQIrWUb5z4dlaP5BuLouj7C+nGpHX47e448ITvPBGvNKizBO3N0IWgoeYnp0JeOGw9ZVnP3BXaupqxd8qioNpJbvTbqpfU+Wemuu1F3JGkC/GsVMmgLIwAR6aa2tQjlJLXGY08ldZZ4ZS7J574BBKwEd2FWU0WwSrlP1bkDrDAGn0qSoBKKT9GarLj5G8iyeBaUG+oSqHgy31o10qGo4wZI2xixfms=

@@ -22,3 +22,6 @@ cabal.project.local
 .stack-work/
 ds-weapons-api.cabal
 *~
+
+python-env/
+weapons.json

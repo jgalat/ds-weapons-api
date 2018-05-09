@@ -1,8 +1,8 @@
-#!/usr/bin/python
 import urllib.request
 import json
 import re
 from bs4 import BeautifulSoup
+from sys import argv
 
 url_base = "http://darksoulsdatabase.com"
 weapons = {}
@@ -128,15 +128,23 @@ def scrap_weapon_type(href):
         href = weapon_link.attrs['href']
         scrap_weapon(href)
 
-def scrap_weapons():
+def scrap_weapons(filename):
     weapon_types = scrap_weapon_types("/compact/weapon/axe?order=asc&sort=name")
     for weapon_type in weapon_types:
         href = weapon_type.attrs['href']
         scrap_weapon_type(href)
-    with open("weapons.json", "w") as output:
+    with open(filename, "w") as output:
+        print("Writing data to: " + filename)
         output.write(json.dumps(weapons, indent = 2))
 
 if __name__ == "__main__":
     print("Init scraping")
-    scrap_weapons()
+
+    if len(argv) < 2:
+        print("Usage: " + argv[0] + " OUTPUT_FILE")
+        exit(1)
+
+    scrap_weapons(argv[1])
+
     print("Finished scraping")
+    exit(0)
