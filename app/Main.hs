@@ -4,17 +4,16 @@ module Main where
 import qualified Data.ByteString.Lazy as BSL
 import           Data.Maybe
 import           System.Exit
+import           System.Environment
 import           Data.Aeson
 import           Web.StaticAPI
 
 import           API
 import           Weapon
 
-jsonFile :: FilePath
-jsonFile = "webscrap/weapons.json"
-
-readJSON :: IO (Maybe Weapons)
-readJSON = decode <$> BSL.readFile jsonFile
+readJSON :: [String] -> IO (Maybe Weapons)
+readJSON []             = return Nothing
+readJSON (jsonFile : _) = decode <$> BSL.readFile jsonFile
 
 failedParsing :: IO ()
 failedParsing = do
@@ -24,8 +23,8 @@ failedParsing = do
 runStaticAPI :: Weapons -> IO ()
 runStaticAPI weapons = do
   putStrLn "Building API."
-  staticAPI (weaponsStaticAPI weapons) defaultOpts
+  staticAPI (weaponsStaticAPI weapons) (defaultOpts { outputDirectory = "dist" })
   exitSuccess
 
 main :: IO ()
-main = readJSON >>= maybe failedParsing runStaticAPI
+main = getArgs >>= readJSON >>= maybe failedParsing runStaticAPI

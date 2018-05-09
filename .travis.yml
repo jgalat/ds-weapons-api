@@ -8,10 +8,10 @@
 # Copy these contents into the root directory of your Github project in a file
 # named .travis.yml
 
-# Branches blocklist
+# Branches
 branches:
-  except:
-  - gh-pages
+  only:
+  - master
 
 # Use new container infrastructure to enable caching
 sudo: false
@@ -41,5 +41,18 @@ install:
 - stack --no-terminal --install-ghc test --only-dependencies
 
 script:
-# Build the package, its tests, and its docs and run the tests
-- stack --no-terminal test --haddock --no-haddock-deps
+# Build the package and run it
+- stack --no-terminal build --no-haddock --no-haddock-deps
+- stack --no-terminal exec ds-weapons-api-exe --no-haddock --no-haddock-deps -- ${WEAPONS_JSON}
+
+after_success:
+# Deploy to gh-pages
+- bash ./scripts/deploy.sh
+
+# Environment
+env:
+  global:
+  - WEAPONS_JSON: webscrap/weapons.json
+  - GH_USER: jgalat
+  - GH_REPO: ds-weapons-api
+  - secure: jEcZGCDnK83vo1Gtf5tHP6enKQ5ZnIYGrixjlDrbKjBNIQwlsvr2vt1fVWDU4bzzDms2ucCR3Ql8SWaZii9Vl8axoQvC2HWkmRSo8thri7WRTAN2DLFrERQfjxpVBXm873i5GXHDBy+rlG0VVQBQ7Ukqd+TB9DyuZ8fubRMiPIY7xDCETAQMlF+pO9dAN3xGxPnCdl1qi0hE0FqQiNJ80jNWLONxLdiHhtgHz9Ejql9cdf9ZmznEW84N46yS1tfkeMn0FZjqydwx/vrudoSMKj+t3uG8p1WhShLoKbr4JGdzhwHW5FtDUyCbqqQfAT2XyVHG3CUs413qmLuiad8yq5RDJWbuBlnZ22ZHRvmVSwqt0gcmOPCzO0+4dYBwLdRAk09FtjqYmHs8Swkbvn5nN0h1blqgMesGTeGKaJ96MQdqOdePMSInUhy8f+scRZITNl/f628GoQrZihQIrWUb5z4dlaP5BuLouj7C+nGpHX47e448ITvPBGvNKizBO3N0IWgoeYnp0JeOGw9ZVnP3BXaupqxd8qioNpJbvTbqpfU+Wemuu1F3JGkC/GsVMmgLIwAR6aa2tQjlJLXGY08ldZZ4ZS7J574BBKwEd2FWU0WwSrlP1bkDrDAGn0qSoBKKT9GarLj5G8iyeBaUG+oSqHgy31o10qGo4wZI2xixfms=

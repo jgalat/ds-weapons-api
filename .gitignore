@@ -22,6 +22,3 @@ cabal.project.local
 .stack-work/
 ds-weapons-api.cabal
 *~
-
-output/
-webscrap/weapons.json
