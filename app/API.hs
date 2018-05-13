@@ -1,14 +1,11 @@
 module API (weaponsStaticAPI) where
 
 import qualified Data.Map.Lazy  as M
-import qualified Data.Set       as DS (fromList, toList)
 import           Data.Aeson
+import           Data.List
 import           Web.StaticAPI
 
 import           Weapon
-
-unique :: Ord a => [a] -> [a]
-unique = DS.toList . DS.fromList
 
 weaponsStaticAPI :: Weapons -> StaticAPI
 weaponsStaticAPI weapons =
@@ -16,7 +13,7 @@ weaponsStaticAPI weapons =
     weaponIds             = M.keys weapons
     weaponElems           = M.elems weapons
     weaponElemsSimplified = map simplifyWeapon weaponElems
-    weaponTypes           = unique (map weapon_type weaponElems)
+    weaponTypes           = nub (map weapon_type weaponElems)
     normalWeapon          = weapons M.! "dagger"
     possibleUpgrades      = M.keys (upgrades normalWeapon)
     getWeapon e           = weapons M.! get "id" e
