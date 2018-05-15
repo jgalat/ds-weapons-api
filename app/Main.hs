@@ -2,6 +2,7 @@
 module Main where
 
 import qualified Data.ByteString.Lazy as BSL
+import           Data.Default.Class (def)
 import           Data.Maybe
 import           System.Exit
 import           System.Environment
@@ -23,7 +24,7 @@ failedParsing = do
 runStaticAPI :: Weapons -> IO ()
 runStaticAPI weapons = do
   putStrLn "Building API."
-  staticAPI (weaponsStaticAPI weapons) (defaultOpts { outputDirectory = "dist" })
+  staticAPIOpts (weaponsStaticAPI weapons) (def { outputDirectory = "dist" })
   exitSuccess
 
 main :: IO ()
