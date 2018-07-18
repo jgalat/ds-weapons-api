@@ -15,7 +15,7 @@
 # resolver:
 #  name: custom-snapshot
 #  location: "./custom-snapshot.yaml"
-resolver: nightly-2018-05-30
+resolver: lts-12.0
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -41,7 +41,7 @@ packages:
 # (e.g., acme-missiles-0.3)
 extra-deps:
 - git: https://github.com/jgalat/static-api-generator.git
-  commit: 1031ad15156f8051a241a76bbe1d455c558f9ec9
+  commit: 8742ed39909b008e662b1479e58a01543dcf56b6
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
