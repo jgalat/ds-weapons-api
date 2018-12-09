@@ -8,7 +8,7 @@ This API is currently hosted in this repository in the
 `gh-pages` branch. It can be accessed at
 https://jgalat.github.io/ds-weapons-api/.
 
-All the data served was scraped from http://www.darksoulsdatabase.com/.
+All the data served was scraped from ~~http://www.darksoulsdatabase.com/~~.
 
 ### Routes
 
